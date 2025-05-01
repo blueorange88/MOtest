@@ -42,8 +42,11 @@
 </table><!-- 팝업: 시간 범위 설정 --><div class="overlay" id="overlay"></div>
 <div class="popup" id="popupRange">
   <h3>시간 범위 설정</h3>
-  <label>시작: <input type="number" id="rangeStartHour" min="0" max="23" value="6"> 시</label><br>
-<label>종료: <input type="number" id="rangeEndHour" min="1" max="23" value="22"> 시</label>
+  <label>시작 시각:
+    <input type="time" id="rangeStart" value="06:00">
+  </label>
+  <label>종료 시각:
+    <input type="time" id="rangeEnd" value="13:00">
   </label>
   <div class="button-row">
     <button onclick="applyTimeRange()">적용</button>
