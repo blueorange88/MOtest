@@ -42,11 +42,8 @@
 </table><!-- 팝업: 시간 범위 설정 --><div class="overlay" id="overlay"></div>
 <div class="popup" id="popupRange">
   <h3>시간 범위 설정</h3>
-  <label>시작 시각:
-    <input type="time" id="rangeStart" value="06:00">
-  </label>
-  <label>종료 시각:
-    <input type="time" id="rangeEnd" value="13:00">
+  <label>시작: <input type="number" id="rangeStartHour" min="0" max="23" value="6"> 시</label><br>
+<label>종료: <input type="number" id="rangeEndHour" min="1" max="23" value="22"> 시</label>
   </label>
   <div class="button-row">
     <button onclick="applyTimeRange()">적용</button>
@@ -76,29 +73,32 @@
     document.getElementById('overlay').style.display = 'block';
   };
 
-  function applyTimeRange() {
-    const start = document.getElementById('rangeStart').value;
-    const end = document.getElementById('rangeEnd').value;
-    const tbody = document.querySelector('#schedule tbody');
-    tbody.innerHTML = '';
+  function applyRangeCurr() {
+  const s = parseInt(document.getElementById('rangeStartHour').value, 10);
+  const e = parseInt(document.getElementById('rangeEndHour').value, 10);
 
-    const startHour = parseInt(start.split(':')[0]);
-    const endHour = parseInt(end.split(':')[0]);
-
-    for (let h = startHour; h < endHour; h++) {
-      const tr = document.createElement('tr');
-      const tdTime = document.createElement('td');
-      tdTime.textContent = `${h}:00`;
-      tdTime.className = 'time-cell';
-      tdTime.onclick = () => openMinutePopup(tdTime);
-      tr.appendChild(tdTime);
-      for (let i = 0; i < 3; i++) {
-        tr.appendChild(document.createElement('td'));
-      }
-      tbody.appendChild(tr);
-    }
-    closePopup();
+  if (e <= s) {
+    alert('종료 시간은 시작 시간보다 커야 합니다.');
+    return;
   }
+
+  if (e - s < 3) {
+    alert('최소 3시간 이상이어야 합니다.');
+    return;
+  }
+
+  scheduleStart = s;
+  scheduleEnd = e;
+
+  buildCurr();
+  buildNext();
+  buildLast();
+  loadCurr();
+  highlightToday();
+  updateToday();
+  initTimeLine();
+  closePopup();
+}
 
   function openMinutePopup(td) {
     currentTimeCell = td;
