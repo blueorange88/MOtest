@@ -1,7 +1,16 @@
-<!DOCTYPE html><html lang="ko">
+좋아요! 아래는 오전 6시부터 오후 3시까지 기본 시간표가 자동 생성되고,
+'시간' 칸을 클릭하면 시간 범위를 다시 설정할 수 있고,
+숫자 시간 칸을 누르면 분(00~50분)을 바꿀 수 있도록 깔끔하게 정리된 전체 코드입니다.
+코드 안에 주석도 붙여두었어요:
+
+
+---
+
+<!DOCTYPE html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>시간 편집 테스트</title>
   <style>
     body { font-family: sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
@@ -28,7 +37,9 @@
     .button-row button { padding: 6px 12px; }
   </style>
 </head>
-<body><h2>시간 편집 테이블</h2>
+<body>
+
+<h2>시간 편집 테이블</h2>
 <table id="schedule">
   <thead>
     <tr>
@@ -39,20 +50,26 @@
     </tr>
   </thead>
   <tbody></tbody>
-</table><!-- 팝업: 시간 범위 설정 --><div class="overlay" id="overlay"></div>
+</table>
+
+<!-- 팝업: 시간 범위 설정 -->
+<div class="overlay" id="overlay"></div>
 <div class="popup" id="popupRange">
   <h3>시간 범위 설정</h3>
   <label>시작 시각:
     <input type="time" id="rangeStart" value="06:00">
   </label>
   <label>종료 시각:
-    <input type="time" id="rangeEnd" value="13:00">
+    <input type="time" id="rangeEnd" value="15:00">
   </label>
   <div class="button-row">
     <button onclick="applyTimeRange()">적용</button>
     <button onclick="closePopup()">취소</button>
   </div>
-</div><!-- 팝업: 분 설정 --><div class="popup" id="popupMinute">
+</div>
+
+<!-- 팝업: 분 설정 -->
+<div class="popup" id="popupMinute">
   <h3>분 선택</h3>
   <label>분 선택:
     <select id="minuteSelect">
@@ -68,47 +85,64 @@
     <button onclick="saveMinute()">저장</button>
     <button onclick="closePopup()">취소</button>
   </div>
-</div><script>
+</div>
+
+<script>
   let currentTimeCell = null;
 
-  document.getElementById('headerTime').onclick = () => {
-    document.getElementById('popupRange').style.display = 'flex';
-    document.getElementById('overlay').style.display = 'block';
-  };
+  // 페이지 로드시 기본 시간표 자동 생성
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('rangeStart').value = "06:00";
+    document.getElementById('rangeEnd').value = "15:00";
+    applyTimeRange();
 
-  function applyRangeCurr() {
-  const s = parseInt(document.getElementById('rangeStartHour').value, 10);
-  const e = parseInt(document.getElementById('rangeEndHour').value, 10);
+    // '시간' 헤더 클릭 시 시간범위 팝업 열기
+    document.getElementById('headerTime').onclick = () => {
+      document.getElementById('popupRange').style.display = 'flex';
+      document.getElementById('overlay').style.display = 'block';
+    };
+  });
 
-  if (e <= s) {
-    alert('종료 시간은 시작 시간보다 커야 합니다.');
-    return;
+  // 시간 범위 적용 함수
+  function applyTimeRange() {
+    const start = document.getElementById('rangeStart').value;
+    const end = document.getElementById('rangeEnd').value;
+    const tbody = document.querySelector('#schedule tbody');
+    tbody.innerHTML = '';
+
+    const startHour = parseInt(start.split(':')[0]);
+    const endHour = parseInt(end.split(':')[0]);
+
+    // 최소 3시간 이상만 허용
+    if (endHour - startHour < 3) {
+      alert("최소 3시간 이상이어야 합니다.");
+      return;
+    }
+
+    // 줄 생성
+    for (let h = startHour; h < endHour; h++) {
+      const tr = document.createElement('tr');
+      const tdTime = document.createElement('td');
+      tdTime.textContent = `${h}:00`;
+      tdTime.className = 'time-cell';
+      tdTime.onclick = () => openMinutePopup(tdTime); // 시간셀 누르면 분 팝업
+      tr.appendChild(tdTime);
+      for (let i = 0; i < 3; i++) {
+        tr.appendChild(document.createElement('td'));
+      }
+      tbody.appendChild(tr);
+    }
+    closePopup();
   }
 
-  if (e - s < 3) {
-    alert('최소 3시간 이상이어야 합니다.');
-    return;
-  }
-
-  scheduleStart = s;
-  scheduleEnd = e;
-
-  buildCurr();
-  buildNext();
-  buildLast();
-  loadCurr();
-  highlightToday();
-  updateToday();
-  initTimeLine();
-  closePopup();
-}
-
+  // 분 설정 팝업 열기
   function openMinutePopup(td) {
     currentTimeCell = td;
     document.getElementById('popupMinute').style.display = 'flex';
     document.getElementById('overlay').style.display = 'block';
   }
 
+  // 선택한 분 값 저장
   function saveMinute() {
     const min = document.getElementById('minuteSelect').value;
     const hour = currentTimeCell.textContent.split(':')[0];
@@ -116,9 +150,12 @@
     closePopup();
   }
 
+  // 팝업 닫기 공통
   function closePopup() {
     document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
     document.getElementById('overlay').style.display = 'none';
   }
-</script></body>
+</script>
+
+</body>
 </html>
