@@ -183,17 +183,18 @@ function init(){
   setInterval(updateTimeLine, 60000);
 }
 
-function buildCurr(){
+function buildCurr() {
   const tb = document.querySelector('#scheduleTableCurr tbody');
   tb.innerHTML = '';
-  for(let h = scheduleStart; h < scheduleEnd; h++){
+  for (let h = scheduleStart; h < scheduleEnd; h++) {
     const r = document.createElement('tr');
     const c0 = document.createElement('td');
-    c0.textContent = `${h}:00`;
+    const savedMinute = localStorage.getItem(`minute-${h - scheduleStart}`);
+    c0.textContent = savedMinute ? `${h}:${savedMinute}` : `${h}:00`;
     c0.className = 'time-cell';
     c0.onclick = () => openMinute(c0);
     r.append(c0);
-    for(let i=0; i<7; i++){
+    for (let i = 0; i < 7; i++) {
       const c = document.createElement('td');
       c.onclick = () => openLesson(c);
       r.append(c);
@@ -230,12 +231,17 @@ function openMinute(cell){
   currentCell = cell;
   showPopup(document.getElementById('popupMinute'));
 }
-function saveMinute(){
+function saveMinute() {
   const m = document.getElementById('minuteSelect').value;
   const h = currentCell.textContent.split(':')[0];
   currentCell.textContent = `${h}:${m}`;
+
+  // 저장
+  const rowIndex = currentCell.parentElement.rowIndex;
+  localStorage.setItem(`minute-${rowIndex}`, m);
+
   updateTimeLine();
-  hidePopup();
+  closePopup();
 }
 
 function openLesson(cell){
