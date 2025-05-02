@@ -184,29 +184,22 @@ function init(){
 }
 
 function buildCurr() {
-  const tb = document.querySelector('#scheduleTableCurr tbody');
-  tb.innerHTML = '';
+  const m = localStorage.getItem(minute-${h}) ||'00'; c0.textContent = ${h}:${m};
   for (let h = scheduleStart; h < scheduleEnd; h++) {
-    const r = document.createElement('tr');
-    const c0 = document.createElement('td');
-
-    // 저장된 분(minute) 불러오기 (예: minute-6, minute-7 ...)
-    const savedMinute = localStorage.getItem(`minute-${h}`);
-    const minute = savedMinute || '00';
-
-    c0.textContent = `${h}:${minute}`;
+  const r = document.createElement('tr');
+  const c0 = document.createElement('td');
+  const savedMinute = localStorage.getItem
+    (minute-${h - scheduleStart});
+    c0.textContent = savedMinute ? ${h}:${savedMinute} : ${h}:00;
     c0.className = 'time-cell';
     c0.onclick = () => openMinute(c0);
-    r.append(c0);
-
-    for (let i = 0; i < 7; i++) {
-      const c = document.createElement('td');
+    r.append(c0); for (let i = 0; i < 7; i++) {
+  const c = document.createElement('td');
       c.onclick = () => openLesson(c);
-      r.append(c);
-    }
-    tb.append(r);
+      r.append(c); } tb.append(r); 
   }
 }
+   
 function buildNext(){
   const tb = document.querySelector('#scheduleTableNext tbody');
   tb.innerHTML = '';
