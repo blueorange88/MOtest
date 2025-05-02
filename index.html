@@ -184,19 +184,27 @@ function init(){
 }
 
 function buildCurr() {
-  const m = localStorage.getItem(minute-${h}) ||'00'; c0.textContent = ${h}:${m};
+  const tb = document.querySelector('#scheduleTableCurr tbody');
+  tb.innerHTML = '';
   for (let h = scheduleStart; h < scheduleEnd; h++) {
-  const r = document.createElement('tr');
-  const c0 = document.createElement('td');
-  const savedMinute = localStorage.getItem
-    (minute-${h - scheduleStart});
-    c0.textContent = savedMinute ? ${h}:${savedMinute} : ${h}:00;
+    const r = document.createElement('tr');
+    const c0 = document.createElement('td');
+
+    // 저장된 분(minute) 불러오기 (예: minute-6, minute-7 ...)
+    const savedMinute = localStorage.getItem(`minute-${h}`);
+    const minute = savedMinute || '00';
+
+    c0.textContent = `${h}:${minute}`;
     c0.className = 'time-cell';
     c0.onclick = () => openMinute(c0);
-    r.append(c0); for (let i = 0; i < 7; i++) {
-  const c = document.createElement('td');
+    r.append(c0);
+
+    for (let i = 0; i < 7; i++) {
+      const c = document.createElement('td');
       c.onclick = () => openLesson(c);
-      r.append(c); } tb.append(r); 
+      r.append(c);
+    }
+    tb.append(r);
   }
 }
    
@@ -232,11 +240,13 @@ function openMinute(cell){
 function saveMinute() {
   const m = document.getElementById('minuteSelect').value;
   const h = currentCell.textContent.split(':')[0];
+
+  // 시간 칸 텍스트 변경
   currentCell.textContent = `${h}:${m}`;
 
   // 분 값 저장
-  const h = currentCell.textContent.split(':')[0];
-localStorage.setItem(`minute-${h}`, m);
+  localStorage.setItem(`minute-${h}`, m);
+
   updateTimeLine();
 
   // 팝업 닫기
