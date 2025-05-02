@@ -441,18 +441,38 @@ function loadCurr(){
     });
   });
 }
-function updateToday(){
+   
+function updateToday() {
   const now = new Date();
-  const nv = now.getHours()*60 + now.getMinutes();
+  const todayIndex = now.getDay(); // 0: 일 ~ 6: 토
+  const nv = now.getHours() * 60 + now.getMinutes();
   const list = [];
-  document.querySelectorAll('#scheduleTableCurr td').forEach(c => {
-    if(c.dataset.info){
-      const v = JSON.parse(c.dataset.info);
-      const [h, m] = v.time.split(':').map(Number);
-      const t = h*60 + m;
-      if(t >= nv) list.push({ t, text: `${v.time} ${v.name} (${v.enrolled}/${v.cap})` });
+
+  document.querySelectorAll('#scheduleTableCurr tbody tr').forEach(r => {
+    const timeText = r.firstChild.textContent;
+    const [h, m] = timeText.split(':').map(Number);
+    const rowMinutes = h * 60 + (m || 0);
+    const cell = r.children[todayIndex === 0 ? 7 : todayIndex]; // 일요일은 index 7
+
+    if (cell.dataset.info && rowMinutes >= nv) {
+      const v = JSON.parse(cell.dataset.info);
+      list.push({
+        t: rowMinutes,
+        text: `${v.time} ${v.name} (${v.enrolled}/${v.cap})`
+      });
     }
   });
+
+  list.sort((a, b) => a.t - b.t);
+
+  const ul = document.getElementById('todayLessonList');
+  ul.innerHTML = '';
+  list.slice(0, 2).forEach(i => {
+    const li = document.createElement('li');
+    li.textContent = i.text;
+    ul.appendChild(li);
+  });
+}
   list.sort((a,b) => a.t - b.t);
   const ul = document.getElementById('todayLessonList');
   ul.innerHTML = '';
