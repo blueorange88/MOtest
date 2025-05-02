@@ -444,20 +444,20 @@ function loadCurr(){
    
 function updateToday() {
   const now = new Date();
-  const todayIndex = now.getDay(); // 0: 일 ~ 6: 토
-  const nv = now.getHours() * 60 + now.getMinutes();
+  const todayIndex = now.getDay(); // 0 = 일요일
+  const columnIndex = todayIndex === 0 ? 7 : todayIndex; // 실제 테이블에서의 위치
+  const nowMinutes = now.getHours() * 60 + now.getMinutes();
   const list = [];
 
   document.querySelectorAll('#scheduleTableCurr tbody tr').forEach(r => {
-    const timeText = r.firstChild.textContent;
-    const [h, m] = timeText.split(':').map(Number);
-    const rowMinutes = h * 60 + (m || 0);
-    const cell = r.children[todayIndex === 0 ? 7 : todayIndex]; // 일요일은 index 7
+    const [h, m] = r.firstChild.textContent.split(':').map(Number);
+    const totalMinutes = h * 60 + (m || 0);
+    const cell = r.children[columnIndex];
 
-    if (cell.dataset.info && rowMinutes >= nv) {
+    if (cell && cell.dataset.info && totalMinutes >= nowMinutes) {
       const v = JSON.parse(cell.dataset.info);
       list.push({
-        t: rowMinutes,
+        t: totalMinutes,
         text: `${v.time} ${v.name} (${v.enrolled}/${v.cap})`
       });
     }
@@ -473,15 +473,7 @@ function updateToday() {
     ul.appendChild(li);
   });
 }
-  list.sort((a,b) => a.t - b.t);
-  const ul = document.getElementById('todayLessonList');
-  ul.innerHTML = '';
-  list.slice(0,2).forEach(i => {
-    const li = document.createElement('li');
-    li.textContent = i.text;
-    ul.appendChild(li);
-  });
-}
+   
 function initTimeLine(){ updateTimeLine(); }
 function updateTimeLine(){
   document.querySelectorAll('.current-time-line').forEach(e => e.remove());
