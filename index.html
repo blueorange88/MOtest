@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>More Than Fitness - Dashboard</title>
+  
+   <!-- Pretendard 웹폰트 로딩: 반드시 style 밖에! -->
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet" />
+
   <style>
     /↓ 이 부분을 style 블록 맨 위에 추가하세요 */
     :root {
@@ -12,12 +16,27 @@
       --text: #0A122A;      /* 딥네이비 텍스트 */
       --accent: #FFD700;    /* 골드 액센트 */
     }
-
     /* — 여기에 기존 body, .topbar, .popup… 등 아래 코드 이어짐 — */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { display: flex; flex-direction: column; height: 100vh; font-family: 'Poppins', sans-serif; background: #f5f0e8; overflow: hidden; }
-    .topbar { position: fixed; top: 0; left: 0; right: 0; height: 50px; background: #f5f0e8; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 1001; }
-    .topbar h1 { font-size: 18px; color: #0d1b2a; }
+    body { display: flex; flex-direction: column; height: 100vh; font-family: 'Pretendard', sans-serif; background: #f5f0e8; overflow: hidden; }
+   .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 50px;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 1001;
+    }
+    .topbar h1 {
+      font-size: 18px;
+      color: var(--text);
+    }
+
     .hamburger, .logout-btn { background: none; border: none; cursor: pointer; font-size: 20px; color: #0d1b2a; }
     .sidebar { position: fixed; top: 50px; left: 0; bottom: 0; width: 180px; background: #0d1b2a; color: #fff; padding: 15px; transform: translateX(-100%); transition: transform .3s ease; z-index: 1002; }
     .sidebar.active { transform: translateX(0); }
