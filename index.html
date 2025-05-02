@@ -173,6 +173,11 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function init(){
+  if (localStorage.getItem('scheduleRange')) {
+  const { start, end } = JSON.parse(localStorage.getItem('scheduleRange'));
+  scheduleStart = start;
+  scheduleEnd = end;
+}
   buildCurr(); buildNext(); buildLast();
   loadCurr(); highlightToday(); updateToday(); initTimeLine();
   setInterval(updateTimeLine, 60000);
@@ -275,6 +280,7 @@ function applyRangeCurr(){
   if (e - s < 3) return alert('최소 3시간 이상 설정해야 합니다.');
   scheduleStart = s;
   scheduleEnd = e;
+  localStorage.setItem('scheduleRange', JSON.stringify({ start: scheduleStart, end: scheduleEnd }));
   buildCurr(); buildNext(); buildLast();
   loadCurr(); highlightToday(); updateToday(); initTimeLine();
   hidePopup();
