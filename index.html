@@ -79,8 +79,20 @@
     #popupOverlay { z-index: 1000; }
     #sidebarOverlay { z-index: 900; }
     .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 16px; border-radius: 6px; z-index: 1001; width: 260px; max-width: 90%; max-height: 80vh; overflow-y: auto; }
-    .button-group { display: flex; justify-content: space-between; margin-top: 8px; }
-    .button-group button { width: 48%; padding: 6px; background: #f5f0e8; border: none; border-radius: 4px; cursor: pointer; }
+
+    /* 버튼 기본 스타일 개선 */
+.button-group button,
+.bottom-nav button {
+  transition: transform 0.2s ease, background 0.2s;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.button-group button:hover,
+.bottom-nav button:hover {
+  transform: scale(1.05);
+  background: var(--panel);
+  color: var(--fg);
+}
     .bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: #0d1b2a; justify-content: space-around; padding: 8px 0; }
     .bottom-nav button { background: none; border: none; color: #fff; font-size: 14px; cursor: pointer; }
  
@@ -104,12 +116,19 @@
 
   .topbar,
   .sidebar,
-  .schedule-wrapper,
-  .today-lessons,
-  .popup {
-    background: var(--panel);
-    color: var(--fg);
-  }
+  .schedule-wrapper td {
+  border-radius: 8px;
+  background: #fff;
+  transition: box-shadow 0.2s ease;
+}
+.schedule-wrapper td:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.today-lessons,
+.popup { border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
 
   .topbar h1,
   .sidebar button,
