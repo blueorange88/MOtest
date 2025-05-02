@@ -236,12 +236,16 @@ function saveMinute() {
   const h = currentCell.textContent.split(':')[0];
   currentCell.textContent = `${h}:${m}`;
 
-  // 저장
+  // 분 값 저장 (rowIndex를 기준으로 저장)
   const rowIndex = currentCell.parentElement.rowIndex;
   localStorage.setItem(`minute-${rowIndex}`, m);
 
   updateTimeLine();
-  closePopup();
+
+  // 팝업 닫기
+  document.getElementById('popupMinute').style.display = 'none';
+  document.getElementById('popupOverlay').style.display = 'none';
+  document.body.style.overflow = '';
 }
 
 function openLesson(cell){
