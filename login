@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>More Than Fitness - Login</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f5f0e8;
+      font-family: 'Poppins', 'Pretendard', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .main-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #0d1b2a;
+    }
+
+    .main-title h1 {
+      font-size: 36px;
+      letter-spacing: 2px;
+    }
+
+    .main-title h2 {
+      font-size: 18px;
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+
+    .login-form {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+.login-form button {
+  width: 100%;
+  background: radial-gradient(circle, #f9f2d0 0%, #f5f0e8 70%, #f5f0e8 100%);
+  color: #0d1b2a;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  font-size: 15px;
+  border: none; /* 테두리 없애기 */
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: none; /* 그림자도 없애고 깔끔하게 */
+  transition: all 0.3s ease;
+}
+
+.login-form button:hover {
+  background: radial-gradient(circle, #f5e7c4 0%, #f5f0e8 70%, #f5f0e8 100%);
+  transform: translateY(-1px); /* 살짝 눌리는 느낌 */
+}
+
+    .footer-text {
+      margin-top: 20px;
+      text-align: center;
+      color: #0d1b2a;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .main-title h1 {
+        font-size: 28px;
+      }
+
+      .main-title h2, .footer-text {
+        font-size: 14px;
+      }
+
+      .login-form input, .login-form button {
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-title">
+    <h1>MORE THAN</h1>
+    <h2>MOVEMENT STUDIO</h2>
+  </div>
+
+  <form class="login-form" onsubmit="return login(event)">
+    <input type="text" placeholder="아이디를 입력하세요" />
+    <input type="password" placeholder="비밀번호를 입력하세요" />
+    <button type="submit">로그인</button>
+  </form>
+
+  <div class="footer-text">- BEYOND LIMITED -</div>
+
+ <script>
+  function login(event) {
+    event.preventDefault();
+    
+    const id = document.querySelector('input[type="text"]').value;
+    const pw = document.querySelector('input[type="password"]').value;
+
+    if (id === "admin" && pw === "1234") {
+      window.location.href = "/dashboard.html"; 
+    } else {
+      alert("아이디 또는 비밀번호가 잘못되었습니다.");
+    }
+    return false;
+  }
+</script>
+</body>
+</html>
