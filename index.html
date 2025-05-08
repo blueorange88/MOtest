@@ -1,2 +1,160 @@
-{"name":"member_registration","type":"code/html","content":"<!DOCTYPE html>\n<html lang="ko">\n<head>\n  <meta charset="UTF-8">\n  <title>회원 등록 시스템</title>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 20px; }\n    label { display: block; margin-top: 10px; }\n    input, select, textarea { width: 100%; padding: 5px; margin-top: 5px; }\n    button { margin-top: 20px; padding: 10px; }\n  </style>\n</head>\n<body>\n  <h2>회원 등록</h2>\n  <form id="memberForm">\n    <label>이름:<input type="text" id="name" required></label>\n    <label>성별:\n      <select id="gender">\n        <option>남성</option>\n        <option>여성</option>\n      </select>\n    </label>\n    <label>생년월일:<input type="date" id="birthdate"></label>\n    <label>휴대폰번호:<input type="tel" id="phone"></label>\n    <label>이메일:<input type="email" id="email"></label>\n    <label>긴급 연락처:<input type="tel" id="emergencyContact"></label>\n    <label>주소:<input type="text" id="address"></label>\n    <label>첫 등록일:<input type="date" id="firstRegistration"></label>\n    <label>등록횟수:<input type="number" id="totalSessions" min="0"></label>\n    <label>진행횟수:<input type="number" id="completedSessions" min="0"></label>\n    <label>NO SHOW 차감횟수:<input type="number" id="noShowDeducted" min="0"></label>\n    <label>NO SHOW 미차감횟수:<input type="number" id="noShowNotDeducted" min="0"></label>\n    <label>골격근량(kg):<input type="number" step="0.1" id="muscleMass"></label>\n    <label>체지방율(%):<input type="number" step="0.1" id="bodyFatPercentage"></label>\n    <label>건강 특이사항:<textarea id="healthNotes"></textarea></label>\n    <label>담당 트레이너:<input type="text" id="trainer"></label>\n    <label>회원 등급:\n      <select id="memberLevel">\n        <option>일반</option>\n        <option>VIP</option>\n      </select>\n    </label>\n    <label>레슨 유형:<input type="text" id="lessonType"></label>\n    <label>레슨 시간대 선호도:<input type="text" id="preferredTime"></label>\n    <label>회원 메모:<textarea id="adminNotes"></textarea></label>\n    <button type="button" onclick="saveMember()">회원 등록</button>\n  </form>\n\n  <script>\n    function saveMember() {\n      const memberData = {\n        name: document.getElementById('name').value,\n        gender: document.getElementById('gender').value,\n        birthdate: document.getElementById('birthdate').value,\n        phone: document.getElementById('phone').value,\n        email: document.getElementById('email').value,\n
+<!DOCTYPE html><html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>More Than Fitness 회원 등록</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f0e8;
+      color: #0d1b2a;
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }.container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+}
 
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0d3b5a;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  flex: 1;
+  min-width: 120px;
+  font-weight: 600;
+  color: #0d1b2a;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0d3b5a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d4af37;
+  color: #0d1b2a;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>회원 등록</h2>
+    <div class="form-group">
+      <label>이름:</label>
+      <input type="text" />
+      <label>성별:</label>
+      <select>
+        <option>남성</option>
+        <option>여성</option>
+      </select>
+    </div><div class="form-group">
+  <label>생년월일:</label>
+  <input type="date" />
+  <label>휴대폰번호:</label>
+  <input type="tel" />
+</div>
+
+<div class="form-group">
+  <label>이메일:</label>
+  <input type="email" />
+  <label>긴급 연락처:</label>
+  <input type="tel" />
+</div>
+
+<div class="form-group">
+  <label>주소:</label>
+  <input type="text" />
+</div>
+
+<div class="form-group">
+  <label>첫 등록일:</label>
+  <input type="date" />
+  <label>등록횟수:</label>
+  <input type="number" />
+</div>
+
+<div class="form-group">
+  <label>진행횟수:</label>
+  <input type="number" />
+  <label>NO SHOW 차감횟수:</label>
+  <input type="number" />
+  <label>NO SHOW 미차감횟수:</label>
+  <input type="number" />
+</div>
+
+<div class="form-group">
+  <label>골격근량(kg):</label>
+  <input type="number" step="0.1" />
+  <label>체지방율(%):</label>
+  <input type="number" step="0.1" />
+</div>
+
+<div class="form-group">
+  <label>건강 특이사항:</label>
+  <textarea></textarea>
+</div>
+
+<div class="form-group">
+  <label>담당 트레이너:</label>
+  <input type="text" />
+  <label>회원 등급:</label>
+  <select>
+    <option>일반</option>
+    <option>VIP</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label>레슨 유형:</label>
+  <input type="text" />
+  <label>레슨 시간대 선호도:</label>
+  <input type="text" />
+</div>
+
+<div class="form-group">
+  <label>회원 메모:</label>
+  <textarea></textarea>
+</div>
+
+<button>회원 등록</button>
+
+  </div>
+</body>
+</html>
