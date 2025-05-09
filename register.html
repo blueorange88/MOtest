@@ -24,7 +24,7 @@
 
     h2 {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .row {
@@ -35,6 +35,17 @@
 
     .col {
       flex: 1;
+    }
+
+    .top-right-box {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .top-right-box .col {
+      flex: 0 0 30%;
     }
 
     label {
@@ -81,22 +92,29 @@
 <body>
   <div class="container">
     <h2>회원 등록</h2>
-    <form>
-      <div class="row">
-        <div class="col">
-          <label>최초 레슨 등록일</label>
-          <input type="date" required>
-        </div>
-        <div class="col">
-          <label>담당 트레이너</label>
-          <input type="text" required>
-        </div>
-        <div class="col">
-          <label>레슨 유형</label>
-          <input type="text" required>
-        </div>
-      </div>
 
+    <!-- 우측 상단: 최초등록일, 트레이너, 레슨유형 -->
+    <div class="top-right-box">
+      <div class="col">
+        <label>최초 레슨 등록일</label>
+        <input type="date" required>
+      </div>
+      <div class="col">
+        <label>담당 트레이너</label>
+        <input type="text" required>
+      </div>
+      <div class="col">
+        <label>레슨 유형</label>
+        <select required>
+          <option value="">선택</option>
+          <option>PT</option>
+          <option>PILATES</option>
+          <option>GOLF</option>
+        </select>
+      </div>
+    </div>
+
+    <form>
       <div class="row">
         <div class="col">
           <label>이름</label>
@@ -167,7 +185,6 @@
         </div>
       </div>
 
-      <!-- 체지방 그래프 영역 자리 -->
       <!-- <div class="form-group"><label>체지방율 추이 그래프</label><canvas id="fatChart"></canvas></div> -->
 
       <div class="form-group">
