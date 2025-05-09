@@ -259,10 +259,18 @@ function submitQuickMember() {
     return;
   }
 }
-    
+
 function toggleSubmenu(id) {
-  const submenu = document.getElementById('submenu-' + id);
-  submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+  // 모든 서브메뉴 닫기
+  document.querySelectorAll('.submenu').forEach(el => {
+    if (el.id !== 'submenu-' + id) el.style.display = 'none';
+  });
+
+  // 선택한 서브메뉴 토글
+  const target = document.getElementById('submenu-' + id);
+  if (target) {
+    target.style.display = (target.style.display === 'block') ? 'none' : 'block';
+  }
 }
     
 function buildCurr() {
