@@ -243,6 +243,7 @@ function toggleQuickCard() {
   const card = document.getElementById('quickRegisterCard');
   card.style.display = (card.style.display === 'none') ? 'block' : 'none';
 }
+    
 
 function submitQuickMember() {
   const name = document.getElementById('quickName').value.trim();
@@ -256,6 +257,11 @@ function submitQuickMember() {
     alert('필수 항목을 입력하고 동의해주세요.');
     return;
   }
+}
+    
+function toggleSubmenu(id) {
+  const submenu = document.getElementById('submenu-' + id);
+  submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
 }
     
 function buildCurr() {
@@ -489,10 +495,6 @@ function highlightToday(){
     ths[idx].style.backgroundColor = '#d4af37';
     ths[idx].style.color = '#0d1b2a';
   }
-}
-    function toggleSubmenu(id) {
-  const submenu = document.getElementById('submenu-' + id);
-  submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
 }
     
 function showPopup(popupEl){
