@@ -94,8 +94,7 @@ table {
 
   <button onclick="toggleSubmenu('member')">회원 관리</button>
   <div id="submenu-member" class="submenu" style="display:none; padding-left:12px;">
-    <button>회원 신규 등록</button>
-    <button>회원 확인</button>
+  <button onclick="goToRegister()">회원 신규 등록</button>    <button>회원 확인</button>
     <button>회원 정보 수정</button>
     <button>회원 삭제</button>
   </div>
@@ -271,6 +270,10 @@ function toggleSubmenu(id) {
   if (target) {
     target.style.display = (target.style.display === 'block') ? 'none' : 'block';
   }
+}
+
+function goToRegister() {
+  window.location.href = 'register.html';
 }
     
 function buildCurr() {
