@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>신체 부위 운동 검색</title>
+  <meta charset="UTF-8" />
+  <title>여성 인체 클릭</title>
   <style>
     svg path {
-      fill: #ccc;
       cursor: pointer;
       transition: fill 0.2s;
     }
     svg path:hover {
-      fill: #ff6347;
+      fill: #ff7675;
     }
   </style>
 </head>
 <body>
-  <h2>신체 부위를 클릭하세요</h2>
+  <h2>부위를 클릭해보세요</h2>
 
-  <svg width="300" height="600" viewBox="0 0 200 400">
-    <!-- 가슴 -->
-    <path id="chest" d="M60,80 Q100,70 140,80 Q100,90 60,80" />
-    <!-- 팔 -->
-    <path id="arms" d="M40,80 Q30,150 50,200 Q70,150 60,80" />
-    <!-- 다리 -->
-    <path id="legs" d="M80,200 Q90,300 100,400 Q110,300 120,200" />
-  </svg>
+  <div id="svg-container">
+    <!-- 아래 svg 코드부터 붙여넣기 -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 800">
+      <path id="chest" d="M150,200 Q250,180 350,200 Q250,220 150,200" fill="#ccc" stroke="#000" />
+      <path id="abs" d="M200,230 Q250,250 300,230 Q250,300 200,230" fill="#ccc" stroke="#000" />
+      <path id="thigh" d="M200,310 Q250,400 300,310 Q250,500 200,310" fill="#ccc" stroke="#000" />
+    </svg>
+  </div>
 
-  <div id="exercise-output" style="margin-top:20px; font-size:18px;"></div>
+  <div id="output" style="margin-top:20px; font-size:18px;"></div>
 
   <script>
     const data = {
-      chest: ['푸시업', '벤치프레스'],
-      arms: ['덤벨 컬', '해머 컬'],
-      legs: ['스쿼트', '런지']
+      chest: ['푸시업', '체스트 프레스'],
+      abs: ['크런치', '레그 레이즈'],
+      thigh: ['스쿼트', '런지']
     };
 
-    document.querySelectorAll('svg path').forEach(part => {
-      part.addEventListener('click', () => {
-        const id = part.id;
-        const exercises = data[id] || [];
-        document.getElementById('exercise-output').innerHTML =
-          `<strong>${id.toUpperCase()} 운동:</strong> <br>` + exercises.join(', ');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('svg path').forEach(part => {
+        part.addEventListener('click', () => {
+          const id = part.id;
+          const exList = data[id] || [];
+          document.getElementById('output').innerHTML =
+            `<strong>${id.toUpperCase()} 운동:</strong><br>${exList.join(', ')}`;
+        });
       });
     });
   </script>
