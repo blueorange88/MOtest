@@ -14,9 +14,17 @@
   </style>
 </head>
 <body>
-  <h2>부위를 클릭해보세요</h2>
-
-  <!-- SVG 코드 삽입 영역 (아래는 예시, 실제 코드에 본문 SVG 내용 삽입 필요) -->
+<h2>부위를 클릭해보세요</h2>
+  <div class="wrapper">
+    <img src="female_base_image_resized.png" alt="여성 인체 그림" />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 894 768" width="100%" height="auto">
+  <path id="chest" d="M180,190 Q270,170 360,190 Q270,210 180,190" fill="#ccc" stroke="#000"/>
+  <path id="abs" d="M210,230 Q270,260 330,230 Q270,320 210,230" fill="#ccc" stroke="#000"/>
+  <path id="thigh" d="M230,340 Q270,440 310,340 Q270,580 230,340" fill="#ccc" stroke="#000"/>
+  <path id="arm" d="M90,200 Q120,290 150,370 Q160,290 130,200 Z" fill="#ccc" stroke="#000"/>
+  <path id="glutes" d="M220,590 Q270,620 320,590 Q270,670 220,590" fill="#ccc" stroke="#000"/>
+</svg>
+  </div>
   <div id="svg-container">
     <!-- 여기 안에 SVG 내용 붙여넣기 -->
   </div>
